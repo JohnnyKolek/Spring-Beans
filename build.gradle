@@ -4,16 +4,45 @@ plugins {
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+sourceCompatibility = '19'
+
+ext {
+    logbackVersion = '1.2.11'
+    lombokVersion = '1.18.24'
+    springVersion = '5.3.20'
+
+}
 
 repositories {
     mavenCentral()
 }
 
+
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+
+    implementation 'org.springframework:spring-core:5.3.20'
+    implementation 'org.springframework:spring-beans:5.3.20'
+    implementation 'org.springframework:spring-context:5.3.20'
+    implementation 'org.springframework:spring-context-support:5.3.20'
+    implementation 'org.springframework:spring-expression:5.3.20'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
 }
 
 test {
     useJUnitPlatform()
+    testLogging{
+        events "passed", "skipped", "failed"
+    }
 }
+
+compileJava.options.encoding = "UTF-8"
